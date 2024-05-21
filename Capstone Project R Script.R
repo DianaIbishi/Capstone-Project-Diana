@@ -167,6 +167,53 @@ for (i in 1:length(body$year)) {
   check_status_and_download(request_id)
 }
 
+# It did not work to make the request.
 
+# Let's try something else:
 
+request_body <- list(
+  product_type = "reanalysis",
+  variable = c(
+    "2m_dewpoint_temperature", "precipitation_type", "total_precipitation",
+    "type_of_high_vegetation", "type_of_low_vegetation"
+  ),
+  year = "2000",
+  month = c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"),
+  day = c(
+    "01", "02", "03", "04", "05", "06", "07", "08", "09",
+    "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+    "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+    "30", "31"
+  ),
+  time = c(
+    "00:00", "01:00", "02:00", "03:00", "04:00", "05:00",
+    "06:00", "07:00", "08:00", "09:00", "10:00", "11:00",
+    "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
+    "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"
+  ),
+  format = "grib"
+)
+
+# Make the request
+
+response <- POST(
+  url = "https://cds.climate.copernicus.eu/api/v2/resources/reanalysis-era5-single-levels",
+  body = request_body,
+  encode = "json",
+  authenticate("312044", "37e90536-c2cf-4059-adf5-eb65128a373d", type = "basic")
+)
+
+# Check response status
+
+if (status_code(response) == 200) {
+  # Save the downloaded file
+  content <- content(response, "raw")
+  writeBin(content, "download.grib")
+  cat("Download completed successfully.\n")
+} else {
+  cat("Error:", status_code(response), "\n")
+  cat(content(response, "text"), "\n")
+}
+
+# It seemed that it worked
 
