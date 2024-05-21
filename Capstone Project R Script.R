@@ -217,3 +217,54 @@ if (status_code(response) == 200) {
 
 # It seemed that it worked
 
+# The GRIB file from CDS is too large for R. Let's make it smaller.
+
+install.packages("raster")
+install.packages("rgdal")
+install.packages("dplyr")
+install.packages("stars")
+library(raster)
+library(rgdal)
+library(dplyr)
+library(stars)
+
+
+
+# Load the GRIB file
+
+# Install necessary packages
+install.packages("ncdf4")
+install.packages("raster")
+install.packages("dplyr")
+
+# Load the libraries
+library(ncdf4)
+library(raster)
+library(dplyr)
+
+# Read the GRIB file
+nc <- nc_open("download.grib")
+getwd()
+
+# Extract latitude and longitude
+lat <- ncvar_get(nc, "latitude")
+lon <- ncvar_get(nc, "longitude")
+
+# Extract a variable (e.g., temperature)
+temperature <- ncvar_get(nc, "temperature") # Replace 'temperature' with your variable name
+
+# Close the netCDF file
+nc_close(nc)
+
+# Create a data frame with the extracted variables
+data <- expand.grid(lon = lon, lat = lat)
+data$temperature <- as.vector(temperature)
+
+# Save as CSV
+write.csv(data, "output.csv", row.names = FALSE)
+
+# Translating GRIB.file to CSV.file is not possible
+
+
+
+
