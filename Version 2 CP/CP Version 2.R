@@ -1,21 +1,14 @@
 
-# You can also call the ACLED API directly. In order to retrieve data from the API, you must make a GET or POST request to the following URL: 
-  
-# https://api.acleddata.com/acled/read/?key=****************1234&email=you@youremail.com
-
-
-# As my first version of the capestone project did not work (I think because of the format), I
+# As my first version of the capstone project did not work (I think because of the format), I
 # am going to try something else. 
 
 # I really like the theme about political unrest, so protests and events, that's why I keep
-# going with the protests in Kosvo. 
+# going with the protests in Kosovo. 
 
 # Another research question came up to my mind:
 
-# How have the frequency and intensity of protests in Kosovo evolved from 2000 to 2024?
+# How have the frequency and intensity of violent protests in Kosovo evolved from 2018 to 2023?
 
-# I want ot test if there are less protests than in 2000. The war with serbia was actutally in
-# 1999 over. However I am interested in checking if the protests have increased or decreased?
 
 
 
@@ -44,14 +37,30 @@ url <- "https://api.acleddata.com/acled/read"
 
 # The GET request
 
-response <- GET(url, query = list("api-key" = api_key, 
-                                  country = "Kosovo",
-                                  region = "Europe",
-                                  start.date = "2000-01-01",
-                                  end.date = "2023-31-12",
-                                  event.type =  "protests",
-                                  actor.type = "protesters"
-                                  ))
+install.packages("acled.api")
+
+library(acled.api)
+
+
+# Make the API request
+
+response <- acled.api(
+  email.address = "diana.ibishi@stud.unilu.ch",
+  access.key = api_key,
+  country = "Kosovo",
+  start.date = "2000-01-01",
+  end.date = "2023-12-31")
+
+
+# Print the result
+
+print(response)
+
+# Name the response data differentely
+
+df_kosovo <- response
+
+
 
 
 
