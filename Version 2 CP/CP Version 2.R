@@ -45,11 +45,12 @@ url <- "https://api.acleddata.com/acled/read"
 # The GET request
 
 response <- GET(url, query = list("api-key" = api_key, 
-                                  country = "Kosovo", 
+                                  country = "Kosovo",
+                                  region = "Europe",
                                   start.date = "2000-01-01",
                                   end.date = "2023-31-12",
                                   event.type =  "protests",
-                                  actor.type = "protesters",
+                                  actor.type = "protesters"
                                   ))
 
 
