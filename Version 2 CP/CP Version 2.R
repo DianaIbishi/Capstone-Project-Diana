@@ -173,24 +173,3 @@ print(word_counts_by_year)
 
 
 
-
-
-
-# I see that there are still many 
-
-
-
-Regression analysis will help you understand the relationship between the average 
-interaction in cities and the frequency of different sub-event types. Here’s how you can 
-approach it in R:
-
-
-
-
-
-
-
-
-
-
-
