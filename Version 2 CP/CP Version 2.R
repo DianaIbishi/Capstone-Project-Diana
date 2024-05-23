@@ -166,4 +166,3 @@ print(word_counts_by_year)
 # and the average yearly interaction of protests.
 
 
-
