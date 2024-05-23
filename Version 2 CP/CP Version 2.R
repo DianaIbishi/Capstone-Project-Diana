@@ -103,7 +103,7 @@ ordered_interactions <- summary_interactions[order(-summary_interactions$average
 print(ordered_interactions)
 
 # From 2018 until 2023 we see that the most interactions, so the different types of events
-# hat Pristina. I think this is cleas, as it is the capital city of Kosovo. 
+# had Pristine. I think this is clear, as it is the capital city of Kosovo. 
 
 
 # Now I want to see how the interactions evolved with the years in the country
@@ -117,16 +117,72 @@ View(summary_yearly_interactions)
 
 # Let's visualize this
 
-# Assuming you have the 'summary_yearly_interactions' dataframe
+library(ggplot2)
 
-hist(summary_yearly_interactions$year,
-     main = "Average Yearly Interactions",
-     xlab = "Years",
-     ylab = "Average Interaction",
-     col = "skyblue",
-     border = "darkblue")
+ggplot(data = summary_yearly_interactions, aes(x = year, y = average_yearly_interaction)) +
+  geom_line(color = "red", size = 1.5) + 
+  geom_point(color = "darkgreen", size = 4) +
+  labs(title = "Average Interactions per year",
+       x = "Year",
+       y = "Average Interaction") +
+  theme_minimal()
 
 
+# We see the interactions over the five years and in 2020 the most protests took place in
+# Kosovo. My first argument is that the protests are definitely not decreasing. 
+
+
+# Now I want to analyze how many words in the variable sub_event_type are mentioned and
+# which one
+
+word_counts <- kosovo_cleaned_data %>%
+  count(sub_event_type, sort = TRUE)
+  
+# View the word counts
+
+print(word_counts) #The most mentioned word is "peaceful protest" over the five years
+                   #The most second mentioned word is "Attack" over the five years
+
+
+# I want now to filter the counted words by year
+
+filtered_data <- kosovo_cleaned_data %>%
+  filter(year >= 2018 & year <= 2023)
+
+word_counts_by_year <- filtered_data %>%
+  group_by(year, sub_event_type) %>%
+  count(sort = FALSE)
+
+# View the result
+
+print(word_counts_by_year)
+
+
+# Now I have two important data frames:
+
+# word_counts_by_year & summary_yearly_interactions
+
+# I want to analyze if there is a relationship between the frequency of sub-event types
+# and the average yearly interaction of protests.
+
+
+
+
+
+
+
+
+
+
+
+
+# I see that there are still many 
+
+
+
+Regression analysis will help you understand the relationship between the average 
+interaction in cities and the frequency of different sub-event types. Here’s how you can 
+approach it in R:
 
 
 
