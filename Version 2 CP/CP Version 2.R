@@ -165,4 +165,21 @@ print(word_counts_by_year)
 # I want to analyze if there is a relationship between the frequency of sub-event types
 # and the average yearly interaction of protests.
 
+# So I have to create a new data frame (merge them together)
+
+merged_df_kosovo <- merge(word_counts_by_year, summary_yearly_interactions, by = "year")
+
+# View the merged data frame
+
+View(merged_df_kosovo)
+
+
+
+
+
+
+
+
+
+
 
